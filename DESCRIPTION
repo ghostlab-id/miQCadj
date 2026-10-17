@@ -1,0 +1,38 @@
+Package: miQCadj
+Title: Extensions and Utilities for miQC-based Cell Filtering
+Version: 0.1.0
+Authors@R: 
+    person("Eli", "Spies", , "eli.spies@charite.de", role = c("aut", "cre"),
+           comment = c(ORCID = "0009-0001-4071-4476"))
+Description: Provides extensions for miQC-based single-cell quality
+    control, including model component selection using intercept or
+    median, posterior-threshold selection, geometry-based plausibility
+    checks, and visualization utilities for Seurat and
+    SummarizedExperiment- derived workflows.
+License: MIT + file LICENSE
+URL: https://github.com/ghostlab-id/miQCadj
+BugReports: https://github.com/ghostlab-id/miQCadj/issues
+Depends: 
+    R (>= 4.2.0)
+Imports: 
+    flexmix,
+    ggplot2,
+    grDevices,
+    patchwork,
+    S4Vectors,
+    Seurat,
+    SeuratObject,
+    SingleCellExperiment,
+    stats,
+    SummarizedExperiment,
+    utils
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
+Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.0
