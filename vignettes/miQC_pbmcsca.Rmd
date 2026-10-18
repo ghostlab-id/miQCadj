@@ -65,6 +65,10 @@ The original dataset is available via the [SeuratData](https://github.com/satija
 
 ```{r load-data}
 library(miQCadj)
+library(Seurat)
+library(SeuratObject)
+library(SingleCellExperiment)
+library(ggplot2)
 data("pbmc_sub2", package = "miQCadj")
 ```
 
@@ -114,7 +118,7 @@ the vignette.
 
 ### Check components
 
-```{r fm1-check-components, fig.height=5, fig.width=11, out.width="80%", fig.align="center", fig.cap="**pbmc1_Smartseq2: miQC Classification and Posterior Probability of a Cell being low Quality**"}
+```{r fm1-check-components, fig.height=5, fig.width=11, out.width="95%", fig.align="center", fig.cap="**pbmc1_Smartseq2: miQC Classification and Posterior Probability of a Cell being low Quality**"}
 check_miQC_components(flexmix_list = fm1, sample_name = "pbmc1_Smartseq2")
 ```
 
@@ -161,9 +165,11 @@ but hasn't been benchmarked so far, and therefore, it represents an experimental
 adjustment method. So it should be visualized and inspected using `check_miQC_predictions()`,
 before being selected and applied.
 
-```{r fm1-check-predictions, fig.height=5, fig.width=12, out.width="80%", fig.align="center", fig.cap="**pbmc1_Smartseq2: Unmodified and Adjusted Cell Predictions**"}
-check_miQC_predictions(flexmix_list = fm1, add_unadjusted_prediction = TRUE, add_compared_prediction = TRUE,
-                       sample_name = "pbmc1_Smartseq2", adjustment_method = NULL)
+```{r fm1-check-predictions, fig.height=5, fig.width=12, out.width="95%", fig.align="center", fig.cap="**pbmc1_Smartseq2: Unmodified and Adjusted Cell Predictions**"}
+check_miQC_predictions(flexmix_list = fm1, sample_name = "pbmc1_Smartseq2",
+                       add_unadjusted_prediction = TRUE,  
+                       add_compared_prediction = TRUE,
+                       adjustment_method = NULL)
 ```
 
 
@@ -171,7 +177,7 @@ Though both adjustment methods use very distinct approaches for reassigning cell
 
 Further diagnostics regarding the specific adjustments made by each adjustment method and the corresponding regions, can be visualized using:
 
-```{r fm1-prediction-details, fig.height=8, fig.width=11, out.width="80%", fig.align="center", fig.cap="**pbmc1_Smartseq2: Original and Adjusted Cell Classification**"}
+```{r fm1-prediction-details, fig.height=8, fig.width=11, out.width="95%", fig.align="center", fig.cap="**pbmc1_Smartseq2: Original and Adjusted Cell Classification**"}
 check_miQC_predictions(flexmix_list = fm1, sample_name = "pbmc1_Smartseq2")
 ```
 
@@ -187,7 +193,8 @@ Given identical results for both adjustment methods, the final prediction column
 would reveal identical results for any adjustment method selected:
 
 ```{r pbmc1-add-to-seurat}
-pbmc1 <- add_to_input_obj(flexmix_list = fm1, input_obj = pbmc1, adjustment_method = "original_check")
+pbmc1 <- add_to_input_obj(flexmix_list = fm1, input_obj = pbmc1, 
+                          adjustment_method = "original_check")
 ```
 
 Within the returned Seurat object, we can check, whether specific cell types are 
@@ -201,16 +208,24 @@ stats::addmargins(table(meta$CellType, meta[["miQC.final_prediction"]]))
 To obtain percentage information across kept and discarded cells within each cell type, we can create a proportional table: 
 
 ```{r pbmc1-cell-prop-counts}
-round(prop.table(table(meta$CellType, meta[["miQC.final_prediction"]]), margin = 1), digits = 3)
+round(prop.table(table(meta$CellType, meta[["miQC.final_prediction"]]), 
+                 margin = 1), digits = 3)
 ```
 
 
 Also, we can create a plot showing the cell types and removed cells within the feature-percent-mt plot:
-```{r pbmc1-cell-type-plot, fig.height=5, fig.width=7, out.width="80%", fig.align="center", fig.cap="**pbmc1_Smartseq2: Cell Prediction status colored by Cell Type**"}
+```{r pbmc1-cell-type-plot, fig.height=5, fig.width=7, out.width="95%", fig.align="center", fig.cap="**pbmc1_Smartseq2: Cell Prediction status colored by Cell Type**"}
 meta$CellType <- as.factor(meta$CellType)
 meta[["miQC.final_prediction"]] <- as.factor(meta[["miQC.final_prediction"]])
-ggplot2::ggplot(meta, ggplot2::aes(x = nFeature_RNA, y = percent.mt, colour = CellType, shape = miQC.final_prediction)) +
-  ggplot2::geom_point() + ggplot2::scale_color_brewer(palette = "Paired") + ggplot2::labs(title="pbmc1_Smartseq2: Cell Prediction Status colored by Cell Type") + ggplot2::theme_bw()
+ggplot2::ggplot(meta, ggplot2::aes(x = nFeature_RNA, 
+                                   y = percent.mt, 
+                                   colour = CellType, 
+                                   shape = miQC.final_prediction)) +
+  ggplot2::geom_point() + 
+  ggplot2::scale_color_brewer(palette = "Paired") + 
+  ggplot2::labs(
+    title="pbmc1_Smartseq2: Cell Prediction Status colored by Cell Type") + 
+  ggplot2::theme_bw()
 ```
 
 
@@ -227,33 +242,42 @@ need to be specified.
 
 By default, the original miQC package uses the intercept for component definition, which can cause incorrect cell selection, if polynomial or spline models are selected:
 
-```{r fm2-polynomial, fig.height=5, fig.width=11, out.width="80%", fig.align="center", fig.cap="**Intercept component selection for pbmc2_CELSeq2: miQC Classification and Posterior Probabilities of a Cell being low Quality**"}
-fm2 <- run_miQCadj(input_obj = pbmc2, percent_mt = "percent.mt", complexity_column = "nFeature_RNA", model_type = "polynomial", add_median_selection = TRUE)
-check_miQC_components(flexmix_list = fm2, sample_name = "Intercept-based components for pbmc2_CELSeq2", combine_plots=TRUE)
+```{r fm2-polynomial, fig.height=5, fig.width=11, out.width="95%", fig.align="center", fig.cap="**Intercept component selection for pbmc2_CELSeq2: miQC Classification and Posterior Probabilities of a Cell being low Quality**"}
+fm2 <- run_miQCadj(input_obj = pbmc2, percent_mt = "percent.mt", 
+                   complexity_column = "nFeature_RNA", 
+                   model_type = "polynomial", add_median_selection = TRUE)
+check_miQC_components(flexmix_list = fm2, 
+                      sample_name = "Intercept-based components for pbmc2_CELSeq2", 
+                      combine_plots=TRUE)
 ```
 
 Using the intercept for component selection in this sample would make incorrect assignments, loosing high-quality cells, but keeping low-quality cells. 
 
 So, we can check the median component selection (`use_median_columns = TRUE`) using:
-```{r fm2-check-components-median, fig.height=5, fig.width=11, out.width="80%", fig.align="center", fig.cap="**Median component selection for pbmc2_CELSeq2: miQC Classification and Posterior Probabilities of a Cell being low Quality**"}
-check_miQC_components(flexmix_list = fm2, sample_name = "Median-based components for pbmc2_CELSeq2", use_median_columns = TRUE)
+```{r fm2-check-components-median, fig.height=5, fig.width=11, out.width="95%", fig.align="center", fig.cap="**Median component selection for pbmc2_CELSeq2: miQC Classification and Posterior Probabilities of a Cell being low Quality**"}
+check_miQC_components(flexmix_list = fm2, 
+                      sample_name = "Median-based components for pbmc2_CELSeq2", 
+                      use_median_columns = TRUE)
 ```
 
 The assignments using medians as component selection mode match our biological expectations with low complexity, but high mitochondrial percentage cells belonging to the compromised component. Therefore, we set `component_selection = "median"`, while using the default posterior threshold (`posterior_cutoff=0.75`): 
 
 ```{r fm2-define-classification}
-fm2 <-  define_classification(flexmix_list = fm2, component_selection = "median")
+fm2 <-  define_classification(flexmix_list = fm2, 
+                              component_selection = "median")
 ```
 
 
 Afterwards, we adjusted the classification and check the predictions:
 
-```{r fm2-adjust-classification-check-prediction, fig.height=4.5, fig.width=12, out.width="80%", fig.align="center", fig.cap="**Unmodified and Adjusted Cell Predictions for pbmc2_CELSeq2**"}
+```{r fm2-adjust-classification-check-prediction, fig.height=4.5, fig.width=12, out.width="95%", fig.align="center", fig.cap="**Unmodified and Adjusted Cell Predictions for pbmc2_CELSeq2**"}
 fm2 <-  adjust_classification(flexmix_list = fm2)
 
 # check predictions
-check_miQC_predictions(flexmix_list = fm2, add_unadjusted_prediction = TRUE, add_compared_prediction = TRUE,
-                                    sample_name = "pbmc2_CELSeq2", adjustment_method = NULL)
+check_miQC_predictions(flexmix_list = fm2,  sample_name = "pbmc2_CELSeq2",
+                       add_unadjusted_prediction = TRUE, 
+                       add_compared_prediction = TRUE,
+                       adjustment_method = NULL)
 ```
 
 Apparently, the original and geometry-based adjustment methods produced substantially different classifications for the CEL-Seq2 sample with many cells retained in the geometry_check being discarded by the original_check.
@@ -266,20 +290,22 @@ addmargins(table(fm2$flexmix_data[["miQC.keep_adj_compared"]]))
 
 The strict filtering in the original check is introduced by `enforce_left_cutoff=TRUE`. Since removing 93 cells, corresponding to a cell fraction of 34.1%, shouldn't be performed without further checks, we will set `enforce_left_cutoff=FALSE`. This will keep the `left_cutoff` information available, without forcing extensive filtering decisions without further quality checks being performed:
 
-```{r fm2-adjust-prediction-no-left-cutoff, fig.height=4.5, fig.width=12, out.width="80%", fig.align="center", fig.cap="**Unmodified and Adjusted Cell Predictions for pbmc2_CELSeq2 (without left cutoff)**"}
+```{r fm2-adjust-prediction-no-left-cutoff, fig.height=4.5, fig.width=12, out.width="95%", fig.align="center", fig.cap="**Unmodified and Adjusted Cell Predictions for pbmc2_CELSeq2 (without left cutoff)**"}
 # adjust classification
 fm2 <-  adjust_classification(flexmix_list = fm2, enforce_left_cutoff = FALSE)
 
 # check predictions
-check_miQC_predictions(flexmix_list = fm2, add_unadjusted_prediction = TRUE, add_compared_prediction = TRUE,
-                                    sample_name = "pbmc2_CELSeq2", adjustment_method = NULL)
+check_miQC_predictions(flexmix_list = fm2, sample_name = "pbmc2_CELSeq2",
+                       add_unadjusted_prediction = TRUE, 
+                       add_compared_prediction = TRUE,
+                       adjustment_method = NULL)
 ```
 
 Now, both adjustment methods provide identical results, with no adjustments made, given all shared cells are either labelled as `both_keep` or `both_discard`.
 
 To check the regions assigned in both adjustment methods we can create the prediction plot for both adjustment methods:
 
-```{r fm2-prediction-details,fig.height=8, fig.width=11, out.width="80%", fig.align="center", fig.cap="**Median-based Component Selection and Region-Adjustments for pbmc2_CELSeq2 (without left cutoff)**"}
+```{r fm2-prediction-details,fig.height=8, fig.width=11, out.width="95%", fig.align="center", fig.cap="**Median-based Component Selection and Region-Adjustments for pbmc2_CELSeq2 (without left cutoff)**"}
 check_miQC_predictions(fm2, sample_name = "pbmc2_CELSeq2")
 ```
 
@@ -290,7 +316,9 @@ check_miQC_predictions(fm2, sample_name = "pbmc2_CELSeq2")
 After setting `enforce_left_cutoff=FALSE`, both adjustment methods provided identical prediction results. To retain all columns from the flexmix data frame enabling further checks, we can set `transfer_columns = "all"`, enabling further checks, i.e. whether specific cell types occupy specific region compartments:
 
 ```{r pbmc2-add-to-sce}
-pbmc2 <- add_to_input_obj(flexmix_list = fm2, input_obj = pbmc2,  transfer_columns = "all", adjustment_method = "geometry_check")
+pbmc2 <- add_to_input_obj(flexmix_list = fm2, input_obj = pbmc2,  
+                          transfer_columns = "all", 
+                          adjustment_method = "geometry_check")
 ```
 
 Within the returned SingleCellExperiment object, we can check, whether specific
@@ -305,16 +333,22 @@ stats::addmargins(table(col_data$CellType, col_data[["miQC.final_prediction"]]))
 To obtain percentage information across kept and discarded cells within each cell type, we can create a proportional table: 
 
 ```{r pbmc2-cell-prop-counts}
-round(prop.table(table(col_data$CellType, col_data[["miQC.final_prediction"]]), margin = 1), digits = 3)
+round(prop.table(table(col_data$CellType, col_data[["miQC.final_prediction"]]), 
+                 margin = 1), digits = 3)
 ```
 
 
 Or by creating a plot showing the cell types and removed cells within the feature-percent-mt plot:
-```{r pbmc2-cell-type-plot, fig.height=5, fig.width=7, out.width="80%", fig.align="center", fig.cap="**pbmc2_CELSeq2: Cell Prediction status colored by Cell Type**"}
+```{r pbmc2-cell-type-plot, fig.height=5, fig.width=7, out.width="95%", fig.align="center", fig.cap="**pbmc2_CELSeq2: Cell Prediction status colored by Cell Type**"}
 col_data$CellType <- as.factor(col_data$CellType)
 col_data[["miQC.final_prediction"]] <- as.factor(col_data[["miQC.final_prediction"]])
-ggplot2::ggplot(col_data, ggplot2::aes(x = nFeature_RNA, y = percent.mt, colour = CellType, shape = miQC.final_prediction)) +
-  ggplot2::geom_point() + ggplot2::scale_color_brewer(palette = "Paired") + ggplot2::labs(title="pbmc2_CELSeq2: Cell Prediction Status colored by Cell Type") +
+ggplot2::ggplot(col_data, ggplot2::aes(x = nFeature_RNA, 
+                                       y = percent.mt, 
+                                       colour = CellType, 
+                                       shape = miQC.final_prediction)) +
+  ggplot2::geom_point() + ggplot2::scale_color_brewer(palette = "Paired") + 
+  ggplot2::labs(
+    title="pbmc2_CELSeq2: Cell Prediction Status colored by Cell Type") +
   ggplot2::theme_bw()
 ```
 
@@ -322,7 +356,9 @@ ggplot2::ggplot(col_data, ggplot2::aes(x = nFeature_RNA, y = percent.mt, colour 
 
 ### Session Info
 
-```{r}
-sessionInfo()
+```{r session-info}
+session_info <- utils::sessionInfo()
+session_info$loadedOnly <- NULL
+print(session_info)
 ```
 

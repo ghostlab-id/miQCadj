@@ -10,3 +10,5 @@
 *.Rcheck
 Meta/
 doc/
+/doc/
+/Meta/

@@ -36,12 +36,14 @@ each plot, if \code{combine_plots=FALSE}, or for the global plot only, if
 
 \item{add_unadjusted_prediction}{Logical Scalar. Whether the unadjusted
 prediction plot for \code{"miQC.keep"}, should be re-created. Defaults to
-\code{FALSE}.
-@param add_compared_prediction Logical Scalar. Whether the plot comparing
+\code{FALSE}.}
+
+\item{add_compared_prediction}{Logical Scalar. Whether the plot comparing
 the post-hoc prediction adjustments \code{"miQC.keep_adj_compared"} created by
 \code{adjust_classification()}, if both adjustment methods were applied, should
-should be created. Defaults to \code{FALSE}.
-@param add_probability Logical Scalar. Whether the plot with the
+should be created. Defaults to \code{FALSE}.}
+
+\item{add_probability}{Logical Scalar. Whether the plot with the
 probability for each cell belonging to the compromised compartment
 \code{"miQC.prob_invalid"}, should be re-created. Defaults to \code{FALSE}.}
 

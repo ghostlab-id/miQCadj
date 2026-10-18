@@ -286,7 +286,7 @@ geometry_adjustments <- function(df, model_type,
   
   if (isTRUE(verbose)){
     message(paste("Updated geometry-related Reassignments: ",
-                  paste(capture.output(
+                  paste(utils::capture.output(
                     table(df[,c("miQC.geom_region","miQC.geom_adj")], useNA = "ifany")), 
                     collapse = "\n"), sep = "\n"))}
   

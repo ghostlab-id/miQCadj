@@ -11,7 +11,8 @@ The RNA assay contains raw counts, and the cell metadata include:
 \item{\code{orig.ident}}{Original sample identity.}
 \item{\code{nCount_RNA}}{Total RNA counts per cell.}
 \item{\code{nFeature_RNA}}{Number of detected RNA features per cell.}
-\item{\code{percent.mt}}{Proportion of counts assigned to mitochondrial genes.}
+\item{\code{percent.mito}}{Original proportion of counts assigned to mitochondrial genes.}
+\item{\code{percent.mt}}{Recomputed proportion of counts assigned to mitochondrial genes.}
 \item{\code{Cluster}}{Original cluster annotation.}
 \item{\code{CellType}}{Original cell-type annotation.}
 \item{\code{sample}}{Sample identifier.}
@@ -22,9 +23,6 @@ The RNA assay contains raw counts, and the cell metadata include:
 \source{
 Derived from the \code{pbmcsca} dataset distributed through
 the \href{https://github.com/satijalab/seurat-data}{SeuratData} package.
-}
-\usage{
-pbmc_sub2
 }
 \description{
 A subset of the \code{pbmcsca} dataset from \href{https://github.com/satijalab/seurat-data}{SeuratData}

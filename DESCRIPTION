@@ -19,16 +19,16 @@ Imports:
     ggplot2,
     grDevices,
     patchwork,
-    S4Vectors,
-    Seurat,
-    SeuratObject,
-    SingleCellExperiment,
     stats,
     SummarizedExperiment,
     utils
 Suggests: 
     knitr,
     rmarkdown,
+    S4Vectors,
+    Seurat,
+    SeuratObject,
+    SingleCellExperiment,
     testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr

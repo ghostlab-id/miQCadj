@@ -168,7 +168,7 @@ original_adjustments <- function (df, keep_all_below_boundary = TRUE, min_index_
   
   if (isTRUE(verbose)) {
     message(paste("Original geometry-related Reassignments: ",
-                  paste(capture.output(
+                  paste(utils::capture.output(
                     table(df[,c("miQC.below_boundary","miQC.left_cutoff")], useNA = "ifany")), 
                     collapse = "\n"), sep = "\n"))}
   

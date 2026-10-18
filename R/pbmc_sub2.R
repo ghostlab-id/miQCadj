@@ -13,7 +13,8 @@
 #'   \item{`orig.ident`}{Original sample identity.}
 #'   \item{`nCount_RNA`}{Total RNA counts per cell.}
 #'   \item{`nFeature_RNA`}{Number of detected RNA features per cell.}
-#'   \item{`percent.mt`}{Proportion of counts assigned to mitochondrial genes.}
+#'   \item{`percent.mito`}{Original proportion of counts assigned to mitochondrial genes.}
+#'   \item{`percent.mt`}{Recomputed proportion of counts assigned to mitochondrial genes.}
 #'   \item{`Cluster`}{Original cluster annotation.}
 #'   \item{`CellType`}{Original cell-type annotation.}
 #'   \item{`sample`}{Sample identifier.}
@@ -24,5 +25,7 @@
 #' @source Derived from the \code{pbmcsca} dataset distributed through
 #' the [SeuratData](https://github.com/satijalab/seurat-data) package.
 #'
+#' @docType data
+#' @name pbmc_sub2
 #' @keywords datasets
-"pbmc_sub2"
+NULL
