@@ -77,8 +77,7 @@ style F color:#000000,fill:#ffffff,stroke:#808080
 
 **Workflow interpretation:** Solid arrows indicate the recommended
 workflow, while dashed arrows indicate optional shortcuts that bypass
-intermediate steps. Blue nodes represent functions generating diagnostic
-plots.
+functions generating diagnostic plots, represented by blue nodes.
 
 **Note:** Although proceeding directly from `define_classification()` to
 `add_to_input_obj()` is technically possible, we strongly advise against
