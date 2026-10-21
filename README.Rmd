@@ -59,7 +59,7 @@ flowchart TD
   A -->C("define_classification()")
   B -->C("define_classification()")
   C -->D("adjust_classification()")
-  C -->E("check_miQC_predictions()")
+  C -->F("check_miQC_predictions()")
   D -->E("check_miQC_predictions()")
   E -->F("add_to_input_obj()")
 
