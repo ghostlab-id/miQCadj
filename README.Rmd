@@ -56,13 +56,12 @@ Exported functions comprise (alphabetically ordered):
 ```mermaid
 flowchart TD
   A("run_miQCadj()") -->B("check_miQC_components()")
-  A -->C("define_classification()")
-  B -->C("define_classification()")
+  A -.->C("define_classification()")
+  B -->C
   C -->D("adjust_classification()")
-  C -->F("check_miQC_predictions()")
   D -->E("check_miQC_predictions()")
-  D -->F("check_miQC_predictions()")
-  E -->F("add_to_input_obj()")
+  D -.->F("add_to_input_obj()")
+  E -->F
 
 style A color:#000000,fill:#ffffff,stroke:#808080
 style B color:#000000,fill:#8eb6ed,stroke:#1e4985
@@ -71,6 +70,13 @@ style D color:#000000,fill:#ffffff,stroke:#808080
 style E color:#000000,fill:#8eb6ed,stroke:#1e4985
 style F color:#000000,fill:#ffffff,stroke:#808080
 ```
+
+**Workflow interpretation:** Solid arrows indicate the recommended workflow, while dashed 
+arrows indicate optional shortcuts that bypass intermediate steps. Blue nodes represent 
+functions generating diagnostic plots.
+
+**Note:**: Although proceeding directly from `define_classification()` to `add_to_input_obj()` is
+technically possible, we strongly advise against skipping post-hoc adjustments for standard scRNA cell filtering.
 
 ---
 
