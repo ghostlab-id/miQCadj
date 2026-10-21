@@ -228,7 +228,20 @@ ggplot2::ggplot(meta, ggplot2::aes(x = nFeature_RNA,
   ggplot2::theme_bw()
 ```
 
+The dataset contains 14 megakaryocytes (5.53%). The 5th percentile of the number of 
+detected genes (`nFeature_RNA`) corresponds to 722.6 genes. Applying this threshold 
+would exclude 13 of the 14 megakaryocytes (92.9%), leaving only one cell of this population:
 
+```{r remaining-megakaryocytes-five-percent}
+# Calculate the 5th percentile of detected genes
+feature_cutoff <- unname(quantile(meta$nFeature_RNA, probs = 0.05))
+sum(meta$CellType == "Megakaryocyte" & meta$nFeature_RNA > feature_cutoff)
+```
+
+This example illustrates how global percentile-based filtering can disproportionately 
+affect specific cell populations, even when only a small fraction of the overall dataset 
+is excluded. Therefore, the consequences of QC filtering should be evaluated carefully 
+to avoid unintentionally removing large fractions of biologically relevant cell populations.
 
 ---
 

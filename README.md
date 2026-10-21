@@ -145,7 +145,9 @@ prediction plots can be added, setting
 Select final predictions and add data back to the input object:
 
 ``` r
-sc_data <- add_to_input_obj(flexmix_list = flexmix_list, input_obj = sc_data, adjustment_method="geometry_check")
+sc_data <- add_to_input_obj(flexmix_list = flexmix_list, 
+input_obj = sc_data, 
+adjustment_method="geometry_check")
 ```
 
 The final prediction based on the selected flexmix model, component
@@ -162,7 +164,7 @@ in the `metadata` slot for SummarizedExperiment objects.
 ## Vignettes
 
 For further information please check the package vignette:
-[miQC_pbmcsca](https://ghostlab-id.github.io/miQCadj/docs/miQC_pbmcsca/)
+[miQC_pbmcsca](https://ghostlab-id.github.io/miQCadj/doc/miQC_pbmcsca/)
 
 ------------------------------------------------------------------------
 
