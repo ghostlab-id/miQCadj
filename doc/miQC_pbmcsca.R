@@ -7,10 +7,11 @@ knitr::opts_chunk$set(
 
 ## ----load-data----------------------------------------------------------------
 library(miQCadj)
-library(Seurat)
-library(SeuratObject)
-library(SingleCellExperiment)
-library(ggplot2)
+suppressPackageStartupMessages({
+  library(Seurat)
+  library(SeuratObject)
+  library(SingleCellExperiment)
+  library(ggplot2)})
 data("pbmc_sub2", package = "miQCadj")
 
 ## ----table-sample-tech--------------------------------------------------------

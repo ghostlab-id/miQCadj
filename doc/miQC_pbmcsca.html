@@ -351,7 +351,7 @@ should be prioritized.</p>
 provides a convenient approach overcoming the need for specifying
 specific cutoffs for complexity information and mitochondrial
 percentages by fitting a two-component mixture model using <a href="https://CRAN.R-project.org/package=flexmix">flexmix</a>.</p>
-<p><code>miQCadj</code>provides both an implementation of the original
+<p><code>miQCadj</code> provides both an implementation of the original
 <code>miQC</code> classification, and extends the workflow</p>
 <ul>
 <li>Featuring <a href="https://satijalab.org/seurat/">Seurat</a> and <a href="https://bioconductor.org/packages/SummarizedExperiment/">SummarizedExperiment</a>
@@ -392,14 +392,15 @@ package.</p>
 <div id="settings-data" class="section level2">
 <h2>Settings &amp; Data</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(miQCadj)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(Seurat)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(SeuratObject)</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(SingleCellExperiment)</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;pbmc_sub2&quot;</span>, <span class="at">package =</span> <span class="st">&quot;miQCadj&quot;</span>)</span></code></pre></div>
-<p>The <code>pbmc_sub2</code> subset got 33694 genes and 526 cells with
-253 cells for pbmc1 generated with Smartseq2 and 273 cells for pbmc2
-generated with CELSeq2:</p>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>({</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="fu">library</span>(Seurat)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="fu">library</span>(SeuratObject)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="fu">library</span>(SingleCellExperiment)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="fu">library</span>(ggplot2)})</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;pbmc_sub2&quot;</span>, <span class="at">package =</span> <span class="st">&quot;miQCadj&quot;</span>)</span></code></pre></div>
+<p>The <code>pbmc_sub2</code> dataset contains 33694 genes and 526 cells
+with 253 cells for pbmc1 generated with Smartseq2 and 273 cells for
+pbmc2 generated with CELSeq2:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">addmargins</span>(<span class="fu">table</span>(pbmc_sub2<span class="sc">$</span>sample_tech))</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt; pbmc1_Smartseq2   pbmc2_CELSeq2             Sum </span></span>
@@ -422,12 +423,12 @@ object for demonstration purposes:</p>
 <div id="fit-model" class="section level3">
 <h3>Fit model</h3>
 <p>First, we select <code>pbmc1</code> generated with Smartseq2 and
-apply `run_miQCadj()``:</p>
+apply <code>run_miQCadj()</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>fm1 <span class="ot">&lt;-</span> <span class="fu">run_miQCadj</span>(pbmc1)</span></code></pre></div>
 <p>By default, <code>percent.mt</code> will be selected for
 mitochondrial percentage information and <code>nFeature_RNA</code> as
 complexity column for Seurat objects. To use <code>nCount_RNA</code> as
-complexity column, set <code>complexity_column = &quot;nCount_RNA</code>. By
+complexity column, set <code>complexity_column = &quot;nCount_RNA&quot;</code>. By
 default, a linear model (<code>model_type=&quot;linear&quot;</code>) will be
 applied and the component identity will be determined using the fitted
 intercepts. Median-based component selection will additionally be
@@ -450,8 +451,8 @@ of a Cell being low Quality</strong>
 </div>
 <div id="define-classification" class="section level3">
 <h3>Define Classification</h3>
-<p>Next, we apply define a component selection mode and apply a
-posterior cutoff. We will use the default with
+<p>Next, we define a component selection mode and apply a posterior
+cutoff. We will use the default with
 <code>component_selection=&quot;intercept&quot;</code> and
 <code>posterior_cutoff= 0.75</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>fm1 <span class="ot">&lt;-</span>  <span class="fu">define_classification</span>(<span class="at">flexmix_list =</span> fm1)</span></code></pre></div>
@@ -464,17 +465,17 @@ classified as <code>&quot;keep&quot;</code>.</p>
 </div>
 <div id="post-hoc-adjustments" class="section level3">
 <h3>Post-hoc adjustments</h3>
-<p>Post-hoc adjustments are essential for minimizing model-immanent
-classifications, not favored in filtering of Single Cell Datasets. Very
-simple scenarios occur in linear datasets, after the discard line
-crossed the keep line causing removal of high complexity, low
-mitochondrial reads.</p>
+<p>Post-hoc adjustments are essential for minimizing model-induced
+classifications artifacts, not favored in filtering of Single Cell
+Datasets. Very simple scenarios occur in linear datasets, after the
+discard line crossed the keep line causing removal of high complexity,
+low mitochondrial reads.</p>
 <p>Running <code>adjust_classifications()</code> will strongly reduce
 such model-related filtering artifacts. We provide an
 <code>original_check</code> and a <code>geometry_check</code>, which
 will both be added to the flexmix data frame by default:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>fm1 <span class="ot">&lt;-</span>  <span class="fu">adjust_classification</span>(<span class="at">flexmix_list =</span> fm1)</span></code></pre></div>
-<p>When uing <code>adjust_classification()</code>, the
+<p>When using <code>adjust_classification()</code>, the
 <code>original_check</code> will always keep cells below the intact cell
 distribution, while the argument <code>enforce_left_cutoff</code> can
 either be <code>TRUE</code>, which will discard several cells with low
