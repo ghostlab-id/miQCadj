@@ -65,6 +65,7 @@ flowchart TD
   C -->D("adjust_classification()")
   C -->F("check_miQC_predictions()")
   D -->E("check_miQC_predictions()")
+  D -->F("check_miQC_predictions()")
   E -->F("add_to_input_obj()")
 
 style A color:#000000,fill:#ffffff,stroke:#808080
