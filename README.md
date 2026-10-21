@@ -164,7 +164,7 @@ in the `metadata` slot for SummarizedExperiment objects.
 ## Vignettes
 
 For further information please check the package vignette:
-[miQC_pbmcsca](https://ghostlab-id.github.io/miQCadj/doc/miQC_pbmcsca/)
+[miQC_pbmcsca](https://ghostlab-id.github.io/miQCadj/doc/miQC_pbmcsca/miQC_pbmcsca.html)
 
 ------------------------------------------------------------------------
 
