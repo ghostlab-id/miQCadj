@@ -123,13 +123,12 @@
 </h2>
 <pre class="mermaid"><code>flowchart TD
   A("run_miQCadj()") --&gt;B("check_miQC_components()")
-  A --&gt;C("define_classification()")
-  B --&gt;C("define_classification()")
+  A -.-&gt;C("define_classification()")
+  B --&gt;C
   C --&gt;D("adjust_classification()")
-  C --&gt;F("check_miQC_predictions()")
   D --&gt;E("check_miQC_predictions()")
-  D --&gt;F("check_miQC_predictions()")
-  E --&gt;F("add_to_input_obj()")
+  D -.-&gt;F("add_to_input_obj()")
+  E --&gt;F
 
 style A color:#000000,fill:#ffffff,stroke:#808080
 style B color:#000000,fill:#8eb6ed,stroke:#1e4985
@@ -137,6 +136,8 @@ style C color:#000000,fill:#ffffff,stroke:#808080
 style D color:#000000,fill:#ffffff,stroke:#808080
 style E color:#000000,fill:#8eb6ed,stroke:#1e4985
 style F color:#000000,fill:#ffffff,stroke:#808080</code></pre>
+<p><strong>Workflow interpretation:</strong> Solid arrows indicate the recommended workflow, while dashed arrows indicate optional shortcuts that bypass intermediate steps. Blue nodes represent functions generating diagnostic plots.</p>
+<p><strong>Note:</strong>: Although proceeding directly from <code><a href="reference/define_classification.html">define_classification()</a></code> to <code><a href="reference/add_to_input_obj.html">add_to_input_obj()</a></code> is technically possible, we strongly advise against skipping post-hoc adjustments for standard scRNA cell filtering.</p>
 <hr>
 </div>
 <div class="section level2">
