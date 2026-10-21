@@ -65,10 +65,11 @@ The original dataset is available via the [SeuratData](https://github.com/satija
 
 ```{r load-data}
 library(miQCadj)
-library(Seurat)
-library(SeuratObject)
-library(SingleCellExperiment)
-library(ggplot2)
+suppressPackageStartupMessages({
+  library(Seurat)
+  library(SeuratObject)
+  library(SingleCellExperiment)
+  library(ggplot2)})
 data("pbmc_sub2", package = "miQCadj")
 ```
 
