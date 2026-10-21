@@ -14,7 +14,7 @@ specific cutoffs for complexity information and mitochondrial
 percentages by fitting a two-component mixture model using
 [flexmix](https://CRAN.R-project.org/package=flexmix).
 
-`miQCadj`provides both an implementation of the original `miQC`
+`miQCadj` provides both an implementation of the original `miQC`
 classification, and extends the workflow
 
 - Featuring [Seurat](https://satijalab.org/seurat/) and
@@ -65,9 +65,9 @@ suppressPackageStartupMessages({
 data("pbmc_sub2", package = "miQCadj")
 ```
 
-The `pbmc_sub2` subset got 33694 genes and 526 cells with 253 cells for
-pbmc1 generated with Smartseq2 and 273 cells for pbmc2 generated with
-CELSeq2:
+The `pbmc_sub2` dataset contains 33694 genes and 526 cells with 253
+cells for pbmc1 generated with Smartseq2 and 273 cells for pbmc2
+generated with CELSeq2:
 
 ``` r
 
@@ -100,7 +100,7 @@ pbmc2 <- Seurat::as.SingleCellExperiment(pbmc2)
 ### Fit model
 
 First, we select `pbmc1` generated with Smartseq2 and apply
-\`run_miQCadj()\`\`:
+[`run_miQCadj()`](https://ghostlab-id.github.io/miQCadj/reference/run_miQCadj.md):
 
 ``` r
 
@@ -110,7 +110,7 @@ fm1 <- run_miQCadj(pbmc1)
 By default, `percent.mt` will be selected for mitochondrial percentage
 information and `nFeature_RNA` as complexity column for Seurat objects.
 To use `nCount_RNA` as complexity column, set
-`complexity_column = "nCount_RNA`. By default, a linear model
+`complexity_column = "nCount_RNA"`. By default, a linear model
 (`model_type="linear"`) will be applied and the component identity will
 be determined using the fitted intercepts. Median-based component
 selection will additionally be available for nonlinear models, where
@@ -138,9 +138,9 @@ Cell being low Quality**
 
 ### Define Classification
 
-Next, we apply define a component selection mode and apply a posterior
-cutoff. We will use the default with `component_selection="intercept"`
-and `posterior_cutoff= 0.75`:
+Next, we define a component selection mode and apply a posterior cutoff.
+We will use the default with `component_selection="intercept"` and
+`posterior_cutoff= 0.75`:
 
 ``` r
 
@@ -156,11 +156,11 @@ classified as `"keep"`.
 
 ### Post-hoc adjustments
 
-Post-hoc adjustments are essential for minimizing model-immanent
-classifications, not favored in filtering of Single Cell Datasets. Very
-simple scenarios occur in linear datasets, after the discard line
-crossed the keep line causing removal of high complexity, low
-mitochondrial reads.
+Post-hoc adjustments are essential for minimizing model-induced
+classifications artifacts, not favored in filtering of Single Cell
+Datasets. Very simple scenarios occur in linear datasets, after the
+discard line crossed the keep line causing removal of high complexity,
+low mitochondrial reads.
 
 Running `adjust_classifications()` will strongly reduce such
 model-related filtering artifacts. We provide an `original_check` and a
@@ -172,7 +172,7 @@ default:
 fm1 <-  adjust_classification(flexmix_list = fm1)
 ```
 
-When uing
+When using
 [`adjust_classification()`](https://ghostlab-id.github.io/miQCadj/reference/adjust_classification.md),
 the `original_check` will always keep cells below the intact cell
 distribution, while the argument `enforce_left_cutoff` can either be

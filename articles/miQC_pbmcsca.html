@@ -76,7 +76,7 @@ should be prioritized.</p>
 provides a convenient approach overcoming the need for specifying
 specific cutoffs for complexity information and mitochondrial
 percentages by fitting a two-component mixture model using <a href="https://CRAN.R-project.org/package=flexmix" class="external-link">flexmix</a>.</p>
-<p><code>miQCadj</code>provides both an implementation of the original
+<p><code>miQCadj</code> provides both an implementation of the original
 <code>miQC</code> classification, and extends the workflow</p>
 <ul>
 <li>Featuring <a href="https://satijalab.org/seurat/" class="external-link">Seurat</a> and <a href="https://bioconductor.org/packages/SummarizedExperiment/" class="external-link">SummarizedExperiment</a>
@@ -126,9 +126,9 @@ package.</p>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">SingleCellExperiment</span><span class="op">)</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"pbmc_sub2"</span>, package <span class="op">=</span> <span class="st">"miQCadj"</span><span class="op">)</span></span></code></pre></div>
-<p>The <code>pbmc_sub2</code> subset got 33694 genes and 526 cells with
-253 cells for pbmc1 generated with Smartseq2 and 273 cells for pbmc2
-generated with CELSeq2:</p>
+<p>The <code>pbmc_sub2</code> dataset contains 33694 genes and 526 cells
+with 253 cells for pbmc1 generated with Smartseq2 and 273 cells for
+pbmc2 generated with CELSeq2:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/addmargins.html" class="external-link">addmargins</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">pbmc_sub2</span><span class="op">$</span><span class="va">sample_tech</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -155,13 +155,13 @@ object for demonstration purposes:</p>
 <h3 id="fit-model">Fit model<a class="anchor" aria-label="anchor" href="#fit-model"></a>
 </h3>
 <p>First, we select <code>pbmc1</code> generated with Smartseq2 and
-apply `run_miQCadj()``:</p>
+apply <code><a href="../reference/run_miQCadj.html">run_miQCadj()</a></code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_miQCadj.html">run_miQCadj</a></span><span class="op">(</span><span class="va">pbmc1</span><span class="op">)</span></span></code></pre></div>
 <p>By default, <code>percent.mt</code> will be selected for
 mitochondrial percentage information and <code>nFeature_RNA</code> as
 complexity column for Seurat objects. To use <code>nCount_RNA</code> as
-complexity column, set <code>complexity_column = "nCount_RNA</code>. By
+complexity column, set <code>complexity_column = "nCount_RNA"</code>. By
 default, a linear model (<code>model_type="linear"</code>) will be
 applied and the component identity will be determined using the fitted
 intercepts. Median-based component selection will additionally be
@@ -186,8 +186,8 @@ of a Cell being low Quality</strong>
 <div class="section level3">
 <h3 id="define-classification">Define Classification<a class="anchor" aria-label="anchor" href="#define-classification"></a>
 </h3>
-<p>Next, we apply define a component selection mode and apply a
-posterior cutoff. We will use the default with
+<p>Next, we define a component selection mode and apply a posterior
+cutoff. We will use the default with
 <code>component_selection="intercept"</code> and
 <code>posterior_cutoff= 0.75</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -202,18 +202,18 @@ classified as <code>"keep"</code>.</p>
 <div class="section level3">
 <h3 id="post-hoc-adjustments">Post-hoc adjustments<a class="anchor" aria-label="anchor" href="#post-hoc-adjustments"></a>
 </h3>
-<p>Post-hoc adjustments are essential for minimizing model-immanent
-classifications, not favored in filtering of Single Cell Datasets. Very
-simple scenarios occur in linear datasets, after the discard line
-crossed the keep line causing removal of high complexity, low
-mitochondrial reads.</p>
+<p>Post-hoc adjustments are essential for minimizing model-induced
+classifications artifacts, not favored in filtering of Single Cell
+Datasets. Very simple scenarios occur in linear datasets, after the
+discard line crossed the keep line causing removal of high complexity,
+low mitochondrial reads.</p>
 <p>Running <code>adjust_classifications()</code> will strongly reduce
 such model-related filtering artifacts. We provide an
 <code>original_check</code> and a <code>geometry_check</code>, which
 will both be added to the flexmix data frame by default:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fm1</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/adjust_classification.html">adjust_classification</a></span><span class="op">(</span>flexmix_list <span class="op">=</span> <span class="va">fm1</span><span class="op">)</span></span></code></pre></div>
-<p>When uing <code><a href="../reference/adjust_classification.html">adjust_classification()</a></code>, the
+<p>When using <code><a href="../reference/adjust_classification.html">adjust_classification()</a></code>, the
 <code>original_check</code> will always keep cells below the intact cell
 distribution, while the argument <code>enforce_left_cutoff</code> can
 either be <code>TRUE</code>, which will discard several cells with low
