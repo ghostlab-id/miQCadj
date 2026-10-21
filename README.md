@@ -80,9 +80,9 @@ workflow, while dashed arrows indicate optional shortcuts that bypass
 intermediate steps. Blue nodes represent functions generating diagnostic
 plots.
 
-**Note:**: Although proceeding directly from `define_classification()`
-to `add_to_input_obj()` is technically possible, we strongly advise
-against skipping post-hoc adjustments for standard scRNA cell filtering.
+**Note:** Although proceeding directly from `define_classification()` to
+`add_to_input_obj()` is technically possible, we strongly advise against
+skipping post-hoc adjustments for standard scRNA cell filtering.
 
 ------------------------------------------------------------------------
 
