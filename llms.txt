@@ -80,7 +80,7 @@ workflow, while dashed arrows indicate optional shortcuts that bypass
 intermediate steps. Blue nodes represent functions generating diagnostic
 plots.
 
-**Note:**: Although proceeding directly from
+**Note:** Although proceeding directly from
 [`define_classification()`](https://ghostlab-id.github.io/miQCadj/reference/define_classification.md)
 to
 [`add_to_input_obj()`](https://ghostlab-id.github.io/miQCadj/reference/add_to_input_obj.md)
