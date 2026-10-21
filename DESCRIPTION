@@ -10,7 +10,7 @@ Description: Provides extensions for miQC-based single-cell quality
     checks, and visualization utilities for Seurat and
     SummarizedExperiment- derived workflows.
 License: MIT + file LICENSE
-URL: https://github.com/ghostlab-id/miQCadj
+URL: https://github.com/ghostlab-id/miQCadj, https://ghostlab-id.github.io/miQCadj/
 BugReports: https://github.com/ghostlab-id/miQCadj/issues
 Depends: 
     R (>= 4.2.0)
