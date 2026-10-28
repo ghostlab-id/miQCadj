@@ -18,10 +18,10 @@ check_miQC_predictions(
   color_points = c(discard = "dimgrey", keep = "cornflowerblue"),
   shape_geom = c(unchanged = 1, geom_pass = 15, geom_fail = 4),
   color_regions = list(geometry_check = c(valid = "#99D696", converge = "#F2DB68",
-    invalid = "#D6A696"), original_check = c(unchanged = "#99D696", below_boundary =
-    "#F2DB68", left_cutoff = "#D6A696")),
+    invalid = "#E30B41"), original_check = c(unchanged = "#99D696", below_boundary =
+    "#F2DB68", left_cutoff = "#E30B41")),
   color_compare = c(both_keep = "#6495ED", both_discard = "#A9A9A9", keep_orig =
-    "#6932C2", keep_geom = "#123EA3"),
+    "#9EDAF7", keep_geom = "#123EA3"),
   combine_plots = TRUE
 )
 }
@@ -82,13 +82,16 @@ geometry-based adjustments. Defaults to \code{c(unchanged = 1,
  geom_pass = 15, geom_fail = 4)}.}
 
 \item{color_regions}{Named character vector specifying the colors for
-geometry-based regions. Defaults to \code{c(valid="#81F168", 
- invalid="#E28861", converge="gold")}.}
+geometry-based regions. Defaults to \code{list(geometry_check = 
+ c(valid="#99D696", converge="#F2DB68", invalid="#E30B41"),
+ original_check = c(unchanged="#99D696", below_boundary="#F2DB68", 
+ left_cutoff="#E30B41"))} enabling visualization for both geometry-adjustment
+methods.}
 
 \item{color_compare}{Named character vector specifying the colors for
 comparing predictions by \code{original_check} and \code{geometry_check}.
 Defaults to \code{c(both_keep = "#6495ED", both_discard = "#A9A9A9", 
- keep_orig= "#6932C2", keep_geom="#123EA3")}}
+ keep_orig = "#9EDAF7", keep_geom = "#123EA3")}}
 
 \item{combine_plots}{Logical Scalar. Whether the list of plots should be
 combined into a 2-column-grid using \code{patchwork}. Defaults to \code{TRUE}.}

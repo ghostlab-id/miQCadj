@@ -2,7 +2,7 @@ Package: miQCadj
 Title: Extensions and Utilities for miQC-based Cell Filtering
 Version: 0.1.0
 Authors@R: 
-    person("Eli", "Spies", , "eli.spies@charite.de", role = c("aut", "cre"),
+    person("Eli", "Spies", , "treibsand@posteo.de", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0001-4071-4476"))
 Description: Provides extensions for miQC-based single-cell quality
     control, including model component selection using intercept or
