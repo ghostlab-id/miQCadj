@@ -20,10 +20,10 @@ check_miQC_predictions(
   color_points = c(discard = "dimgrey", keep = "cornflowerblue"),
   shape_geom = c(unchanged = 1, geom_pass = 15, geom_fail = 4),
   color_regions = list(geometry_check = c(valid = "#99D696", converge = "#F2DB68",
-    invalid = "#D6A696"), original_check = c(unchanged = "#99D696", below_boundary =
-    "#F2DB68", left_cutoff = "#D6A696")),
+    invalid = "#E30B41"), original_check = c(unchanged = "#99D696", below_boundary =
+    "#F2DB68", left_cutoff = "#E30B41")),
   color_compare = c(both_keep = "#6495ED", both_discard = "#A9A9A9", keep_orig =
-    "#6932C2", keep_geom = "#123EA3"),
+    "#9EDAF7", keep_geom = "#123EA3"),
   combine_plots = TRUE
 )
 ```
@@ -114,13 +114,14 @@ check_miQC_predictions(
 
   Named character vector specifying the colors for geometry-based
   regions. Defaults to
-  `c(valid="#81F168", invalid="#E28861", converge="gold")`.
+  `list(geometry_check = c(valid="#99D696", converge="#F2DB68", invalid="#E30B41"), original_check = c(unchanged="#99D696", below_boundary="#F2DB68", left_cutoff="#E30B41"))`
+  enabling visualization for both geometry-adjustment methods.
 
 - color_compare:
 
   Named character vector specifying the colors for comparing predictions
   by `original_check` and `geometry_check`. Defaults to
-  `c(both_keep = "#6495ED", both_discard = "#A9A9A9", keep_orig= "#6932C2", keep_geom="#123EA3")`
+  `c(both_keep = "#6495ED", both_discard = "#A9A9A9", keep_orig = "#9EDAF7", keep_geom = "#123EA3")`
 
 - combine_plots:
 

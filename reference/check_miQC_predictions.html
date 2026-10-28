@@ -59,10 +59,10 @@ adjust_classification()."></head><body>
 <span>  color_points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>discard <span class="op">=</span> <span class="st">"dimgrey"</span>, keep <span class="op">=</span> <span class="st">"cornflowerblue"</span><span class="op">)</span>,</span>
 <span>  shape_geom <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>unchanged <span class="op">=</span> <span class="fl">1</span>, geom_pass <span class="op">=</span> <span class="fl">15</span>, geom_fail <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
 <span>  color_regions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>geometry_check <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>valid <span class="op">=</span> <span class="st">"#99D696"</span>, converge <span class="op">=</span> <span class="st">"#F2DB68"</span>,</span>
-<span>    invalid <span class="op">=</span> <span class="st">"#D6A696"</span><span class="op">)</span>, original_check <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>unchanged <span class="op">=</span> <span class="st">"#99D696"</span>, below_boundary <span class="op">=</span></span>
-<span>    <span class="st">"#F2DB68"</span>, left_cutoff <span class="op">=</span> <span class="st">"#D6A696"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    invalid <span class="op">=</span> <span class="st">"#E30B41"</span><span class="op">)</span>, original_check <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>unchanged <span class="op">=</span> <span class="st">"#99D696"</span>, below_boundary <span class="op">=</span></span>
+<span>    <span class="st">"#F2DB68"</span>, left_cutoff <span class="op">=</span> <span class="st">"#E30B41"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  color_compare <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>both_keep <span class="op">=</span> <span class="st">"#6495ED"</span>, both_discard <span class="op">=</span> <span class="st">"#A9A9A9"</span>, keep_orig <span class="op">=</span></span>
-<span>    <span class="st">"#6932C2"</span>, keep_geom <span class="op">=</span> <span class="st">"#123EA3"</span><span class="op">)</span>,</span>
+<span>    <span class="st">"#9EDAF7"</span>, keep_geom <span class="op">=</span> <span class="st">"#123EA3"</span><span class="op">)</span>,</span>
 <span>  combine_plots <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -152,15 +152,18 @@ geometry-based adjustments. Defaults to <code>c(unchanged = 1,
 
 <dt id="arg-color-regions">color_regions<a class="anchor" aria-label="anchor" href="#arg-color-regions"></a></dt>
 <dd><p>Named character vector specifying the colors for
-geometry-based regions. Defaults to <code>c(valid="#81F168",
- invalid="#E28861", converge="gold")</code>.</p></dd>
+geometry-based regions. Defaults to <code>list(geometry_check =
+ c(valid="#99D696", converge="#F2DB68", invalid="#E30B41"),
+ original_check = c(unchanged="#99D696", below_boundary="#F2DB68",
+ left_cutoff="#E30B41"))</code> enabling visualization for both geometry-adjustment
+methods.</p></dd>
 
 
 <dt id="arg-color-compare">color_compare<a class="anchor" aria-label="anchor" href="#arg-color-compare"></a></dt>
 <dd><p>Named character vector specifying the colors for
 comparing predictions by <code>original_check</code> and <code>geometry_check</code>.
 Defaults to <code>c(both_keep = "#6495ED", both_discard = "#A9A9A9",
- keep_orig= "#6932C2", keep_geom="#123EA3")</code></p></dd>
+ keep_orig = "#9EDAF7", keep_geom = "#123EA3")</code></p></dd>
 
 
 <dt id="arg-combine-plots">combine_plots<a class="anchor" aria-label="anchor" href="#arg-combine-plots"></a></dt>
